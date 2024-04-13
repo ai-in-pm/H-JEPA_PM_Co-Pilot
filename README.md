@@ -3,14 +3,16 @@
 
 This repository contains the code for a Project Manager Co-Pilot Chatbot using a Hierarchical Joint Embedding Predictive Architecture (H-JEPA) with the Ollama model. The chatbot is trained using self-supervised learning and fine-tuned with task-specific data.
 
+Inspired by the "A Path Towards Autonomous Machine Intelligence" Paper. Link to paper:  https://openreview.net/forum?id=BZ5a1r-kVsf
+
 ## Installation
 
 1. Clone the repository:
-
+```python
 git clone https://github.com/your-username/project-manager-copilot-chatbot.git
 
 2. Install the required dependencies:
-
+```python
 pip install -r requirements.txt
 
 ## Usage
