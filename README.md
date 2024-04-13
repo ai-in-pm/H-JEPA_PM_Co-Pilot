@@ -11,7 +11,11 @@ Inspired by the "A Path Towards Autonomous Machine Intelligence" Paper. Link to 
 
 git clone https://github.com/ai-in-pm/H-JEPA_PM_Co-Pilot.git
 
-2. Install the required dependencies:
+2. CD into Directory:
+
+cd/H-JEPA_PM_Co-Pilot
+
+3. Install the required dependencies:
 
 pip install -r requirements.txt
 
