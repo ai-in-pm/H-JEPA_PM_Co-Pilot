@@ -2,6 +2,8 @@ import tensorflow as tf
 from tensorflow.keras.layers import Input, Embedding, LSTM, Dense, Concatenate
 from tensorflow.keras.models import Model
 from ollama import OllamaModel
+import json
+import os
 
 # Load the pre-trained Ollama model
 ollama_model = OllamaModel.from_pretrained('ollama-base')
@@ -60,18 +62,81 @@ model.fit(self_supervised_data, epochs=10, batch_size=32)
 # Fine-tune the model with task-specific data
 model.fit(task_specific_data, epochs=5, batch_size=32)
 
+# Collect and store human feedback
+def collect_human_feedback(context, response, feedback_file='human_feedback.json'):
+    feedback = input(f"Please provide feedback for the following response:\nContext: {context}\nResponse: {response}\nFeedback: ")
+    
+    # Create a feedback entry
+    feedback_entry = {
+        'context': context,
+        'response': response,
+        'feedback': feedback
+    }
+    
+    # Load existing feedback data if available
+    if os.path.exists(feedback_file):
+        with open(feedback_file, 'r') as file:
+            feedback_data = json.load(file)
+    else:
+        feedback_data = []
+    
+    # Append the new feedback entry to the existing data
+    feedback_data.append(feedback_entry)
+    
+    # Save the updated feedback data to the file
+    with open(feedback_file, 'w') as file:
+        json.dump(feedback_data, file, indent=2)
+    
+    return feedback
+
+# Load and preprocess human feedback data
+def load_feedback_data(feedback_file='human_feedback.json'):
+    if os.path.exists(feedback_file):
+        with open(feedback_file, 'r') as file:
+            feedback_data = json.load(file)
+        
+        # Preprocess the feedback data
+        contexts = [entry['context'] for entry in feedback_data]
+        responses = [entry['response'] for entry in feedback_data]
+        feedbacks = [entry['feedback'] for entry in feedback_data]
+        
+        return contexts, responses, feedbacks
+    else:
+        return [], [], []
+
 # Chatbot inference
-def generate_response(context, evm_metrics, bac, eac):
-    # Preprocess the context, EVM metrics, BAC, and EAC
+def generate_response(context, evm_metrics, bac, eac, previous_feedback):
+    # Preprocess the context, EVM metrics, BAC, EAC, and previous feedback
     # ...
     
     # Generate the response
-    response = model.predict([context, evm_metrics, bac, eac])
+    response = model.predict([context, evm_metrics, bac, eac, previous_feedback])
     
     # Postprocess the response
     # ...
     
-    return response
+    # Collect human feedback on the generated response
+    human_feedback = collect_human_feedback(context, response)
+    
+    return response, human_feedback
+
+# Example usage
+context = "How can I effectively manage project timelines?"
+evm_metrics = [0.8, 1.2, 0.9]  # Example EVM metrics: [CPI, SPI, TCPI]
+bac = 1000000  # Example Budget at Completion
+eac = 1200000  # Example Estimate at Completion
+previous_feedback = "The previous response was helpful but lacked specific examples."
+
+response, human_feedback = generate_response(context, evm_metrics, bac, eac, previous_feedback)
+print("Response:", response)
+print("Human Feedback:", human_feedback)
+
+# Load and preprocess human feedback data
+contexts, responses, feedbacks = load_feedback_data()
+
+# Train the model with task-specific data and human feedback
+task_specific_data = [...]  # Prepare task-specific training data
+train_with_feedback(task_specific_data, contexts, responses, feedbacks)
 
 # Example usage
 context = "How can I effectively manage project timelines?"
