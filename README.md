@@ -8,11 +8,11 @@ Inspired by the "A Path Towards Autonomous Machine Intelligence" Paper. Link to 
 ## Installation
 
 1. Clone the repository:
-```python
+
 git clone https://github.com/your-username/project-manager-copilot-chatbot.git
 
 2. Install the required dependencies:
-```python
+
 pip install -r requirements.txt
 
 ## Usage
