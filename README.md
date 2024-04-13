@@ -9,7 +9,7 @@ Inspired by the "A Path Towards Autonomous Machine Intelligence" Paper. Link to 
 
 1. Clone the repository:
 
-git clone https://github.com/your-username/project-manager-copilot-chatbot.git
+git clone https://github.com/ai-in-pm/H-JEPA_PM_Co-Pilot.git
 
 2. Install the required dependencies:
 
