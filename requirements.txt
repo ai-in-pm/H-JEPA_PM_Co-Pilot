@@ -1,0 +1,5 @@
+tensorflow
+ollama
+numpy
+pandas
+notebook
