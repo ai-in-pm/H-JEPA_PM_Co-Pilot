@@ -7,7 +7,7 @@ Inspired by the "A Path Towards Autonomous Machine Intelligence" Paper. Link to 
 
 ## Installation
 
-1. Clone the repository:
+1. Clone the repository: (Command Prompt - Run as Administrator on Windows OS)
 
     git clone https://github.com/ai-in-pm/H-JEPA_PM_Co-Pilot.git
 
